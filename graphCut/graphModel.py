@@ -31,18 +31,19 @@ class GraphModel(object):
         col = pos % width
         return row, col
 
-    @staticmethod
+    # @staticmethod
     def get_neighbours(row, col, height, width):
         pos = row*width + col
         res = []
         if row != 0:
             n = (row-1)*width + col
-            res.append((pos, n))
+            res.append((pos, n, {'weight': (self.image[row, col] - self.image[row-1, col])**2}))
         if row != height-1:
             n = (row+1)*width + col
-            res.append((pos, n))
+            res.append((pos, n, {'weight': (self.image[row, col] - self.image[row+1, col])**2}))
         if col != 0:
-            res.append((pos, pos-1))
+            res.append((pos, pos-1, {'weight': (self.image[row, col] - self.image[row, col-1])**2}))
         if col != width-1:
-            res.append((pos, pos+1))
+            res.append((pos, pos+1, {'weight': (self.image[row, col] - self.image[row, col+1])**2}))
         return res
+
