@@ -5,6 +5,7 @@ from graphCut.graphModel import GraphModel
 
 data_path = '../data/'
 
+
 def add_gaussian_noise(_img, mean=0, std=10):
     shape = _img.shape
     noise = np.zeros(shape, np.int)

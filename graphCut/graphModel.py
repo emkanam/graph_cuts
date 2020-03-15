@@ -9,17 +9,21 @@ class GraphModel(object):
         self.init_graph()
 
     def init_graph(self):
-        self.G.add_node("source")
-        self.G.add_node("target")
+        self.G.add_node("s")  # source node
+        self.G.add_node("t")  # target node
 
-        edges = []
         for i in range(self.h):
             for j in range(self.w):
                 neighbours = GraphModel.get_neighbours(i, j, self.h, self.w)
-                edges += neighbours
+                for e in neighbours:
+                    cpos, vpos = e  # current and neighbour positions
+                    vi, vj = GraphModel.get_coord(vpos, self.w)
+                    # use intensity as edge weight
+                    weight = (self.image[i, j] - self.image[vi, vj])**2
+                    self.G.add_edge(cpos, vpos, weight=weight)  # add edge to graph
+                # add edge from current node to source an target nodes
                 self.G.add_edge("source", i*self.w+j, weight=0)
                 self.G.add_edge(i * self.w + j, "target", weight=1)
-        self.G.add_edges_from(edges)
 
     @staticmethod
     def get_pos(row, col, width):
