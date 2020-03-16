@@ -6,7 +6,6 @@ class GraphModel(object):
     def __init__(self, _image):
         self.h, self.w = _image.shape
         self.image = _image
-        self.labeling = np.zeros(_image.shape, np.float)
         self.s_val = 0.0
         self.t_val = 1.0
         self.G = nx.grid_2d_graph(self.h, self.w, create_using=nx.DiGraph)
