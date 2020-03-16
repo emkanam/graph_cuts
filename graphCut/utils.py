@@ -32,5 +32,5 @@ if __name__ == '__main__':
     axs[1].imshow(bin_img, cmap='gray')
     plt.show()
 
-    gm = GraphModel(img)
+    gm = GraphModel(img/255.0)
     print(gm.G.in_edges("target"))
