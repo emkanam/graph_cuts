@@ -5,6 +5,7 @@ from graphCut.graphModel import GraphModel
 
 data_path = '../data/'
 
+
 def add_gaussian_noise(_img, mean=0, std=10):
     shape = _img.shape
     noise = np.zeros(shape, np.int)
@@ -31,5 +32,5 @@ if __name__ == '__main__':
     axs[1].imshow(bin_img, cmap='gray')
     plt.show()
 
-    gm = GraphModel(img)
+    gm = GraphModel(img/255.0)
     print(gm.G.in_edges("target"))
