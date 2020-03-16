@@ -34,31 +34,10 @@ class GraphModel(object):
                 im_xy2 = self.image[coord2[0], coord2[1]]
                 weight = np.exp(-(im_xy1-im_xy2)**2)
                 self.G[coord1][coord2]['weight'] = weight
+
     def cut_graph(self):
         """Return label of each image node (source/target) using maxflow-mincut"""
         labels = np.zeros((self.h, self.w))
         # if a node is clustered with source, it takes the source label
         # otherwise it keeps its previous label (for alpha-expansion) or take target label (0)
         return labels
-
-    @staticmethod
-    def get_coord(pos, width):
-        row = pos // width
-        col = pos % width
-        return row, col
-
-    @staticmethod
-    def get_neighbours(row, col, height, width):
-        pos = row*width + col
-        res = []
-        if row != 0:
-            n = (row-1)*width + col
-            res.append((pos, n))
-        if row != height-1:
-            n = (row+1)*width + col
-            res.append((pos, n))
-        if col != 0:
-            res.append((pos, pos-1))
-        if col != width-1:
-            res.append((pos, pos+1))
-        return res
