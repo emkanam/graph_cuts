@@ -6,6 +6,19 @@ from graphCut.graphModel import GraphModel
 data_path = '../data/'
 
 
+def alpha_expansion(labeling, graph):
+    success = True
+    while success:
+        success = False
+        for alpha in [0.0, 1.0]:
+            # TODO 1: find best labeling
+            n_labeling = None
+            if graph.energy(n_labeling) < graph.energy(labeling):
+                success = True  # we found best expansion
+                labeling = n_labeling
+
+    return labeling
+
 def add_gaussian_noise(_img, mean=0, std=10):
     shape = _img.shape
     noise = np.zeros(shape, np.int)
