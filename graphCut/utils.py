@@ -1,12 +1,14 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
-from graphCut.graphModel import GraphModel
+from graphModel import GraphModel
 
 data_path = '../data/'
 
 
-def alpha_expansion(labeling, graph):
+def alpha_expansion(graph):
+    labeling = np.random.randint(2, size=(graph.h, graph.w)).astype(float)
+    graph.update_weights(labeling)
     success = True
     while success:
         success = False
@@ -18,6 +20,7 @@ def alpha_expansion(labeling, graph):
                 labeling = n_labeling
 
     return labeling
+
 
 def add_gaussian_noise(_img, mean=0, std=10):
     shape = _img.shape
@@ -46,4 +49,4 @@ if __name__ == '__main__':
     plt.show()
 
     gm = GraphModel(img/255.0)
-    print(gm.G.in_edges("target"))
+    alpha_expansion(gm)
