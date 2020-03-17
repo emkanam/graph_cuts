@@ -15,8 +15,9 @@ def alpha_expansion(_image, max_it = 1000, levels=[0, 51, 102, 153, 255], count_
         # perform graph cut, pixels that remain linked with alpha are labeled alpha, others that were previously labeled
         # not alpha, keep their label if not linked with alpha
         new_labels = graph.cut_graph()
-        
-        if labels == new_labels:  # if the labels did not change
+
+        diff = labels - new_labels
+        if diff.all() == 0:  # if the labels did not change
             count += 1  # after count_cond=5 update without any change in labels, end the iteration
         else:
             count = 0
