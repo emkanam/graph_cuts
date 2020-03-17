@@ -7,7 +7,7 @@ INFINITY = float('inf')
 
 
 class GraphModel(object):
-    def __init__(self, _image, source_label, _labels=None):
+    def __init__(self, _image, source_label, _labels):
         self.h, self.w = _image.shape
         self.image = _image
         self.labels = _labels
@@ -70,10 +70,10 @@ class GraphModel(object):
         self.left_weights = np.zeros(self.image.shape)
         self.right_weights = np.zeros(self.image.shape)
 
-        self.up_weights[1:, :] = (self.image[1:, :] - self.image[:-1, :]) ** 2
-        self.down_weights[:-1, :] = (self.image[1:, :] - self.image[:-1, :]) ** 2
-        self.left_weights[:, 1:] = (self.image[:, 1:] - self.image[:, :-1]) ** 2
-        self.right_weights[:, :-1] = (self.image[:, 1:] - self.image[:, :-1]) ** 2
+        self.up_weights[1:, :] = (self.labels[1:, :] - self.labels[:-1, :]) ** 2
+        self.down_weights[:-1, :] = (self.labels[1:, :] - self.labels[:-1, :]) ** 2
+        self.left_weights[:, 1:] = (self.labels[:, 1:] - self.labels[:, :-1]) ** 2
+        self.right_weights[:, :-1] = (self.labels[:, 1:] - self.labels[:, :-1]) ** 2
 
     def get_maxflow_object(self):
         sr_weights = np.zeros((self.h, self.w))

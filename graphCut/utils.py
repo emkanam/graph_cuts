@@ -52,10 +52,10 @@ if __name__ == '__main__':
     # show image and noisy image
     show_images(img, noisy_img)
 
-    gm = GraphModel(img, 0)
+    # gm = GraphModel(img, 0)
     levels = [0, 51, 102, 153, 255]
-    labels = np.random.choice(levels, size=img.shape)
-    gm.init_weights(labels)
+    # labels = np.random.choice(levels, size=img.shape)
+    # gm.init_weights(labels)
 
     # show alpha-expansion results
     alp_rim = alpha_expansion(img, max_it=50, levels=levels)

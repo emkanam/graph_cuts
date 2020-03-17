@@ -8,6 +8,7 @@ def alpha_expansion(_image, max_it=1000, levels=[0, 51, 102, 153, 255], count_co
     labels = np.random.choice(levels, size=_image.shape)  # each pixel gets random level
     graph = GraphModel(_image, 0, _labels=labels)
     count = 0
+    g_count = 0
     for it in range(max_it):
         # select an alpha class randomly
         alpha_class = levels[np.random.randint(n_levels)]
@@ -25,4 +26,6 @@ def alpha_expansion(_image, max_it=1000, levels=[0, 51, 102, 153, 255], count_co
         if count > count_cond:
             break
         labels = new_labels
+        g_count += 1
+    print(g_count, "Graph Cuts performed")
     return labels
